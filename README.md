@@ -16,7 +16,7 @@ Last run against live: **86 / 86 passed**.
 
 ![All tests passed](./images/all-passed.png)
 
-![Execution start / testing start](./images/execution-start-testing-start.png)
+<!-- ![Execution start / testing start](./images/execution-start-testing-start.png) -->
 
 ![Postman category API](./images/postman-category-api.png)
 
@@ -26,7 +26,7 @@ Last run against live: **86 / 86 passed**.
 
 ![Postman register API response](./images/postman-register-api-response.png)
 
-![Test run example](./images/test-1.png)
+<!-- ![Test run example](./images/test-1.png) -->
 
 Java 17 · Spring Boot 3.2.4 · PostgreSQL · JaCoCo ≥ 80%
 

@@ -14,21 +14,19 @@ Last run against live: **86 / 86 passed**.
 
 ## Screenshots
 
-<p align="center">
-  <img src="images/all%20passed.png" alt="All tests passed" width="720" />
-  <br />
-  <img src="images/execution%20start%20testing%20start.png" alt="Execution start / testing start" width="720" />
-  <br />
-  <img src="images/postman%20category%20api.png" alt="Postman category API" width="720" />
-  <br />
-  <img src="images/postman%20login%20api%20cookie.png" alt="Postman login API cookie" width="720" />
-  <br />
-  <img src="images/postman%20login%20api%20response.png" alt="Postman login API response" width="720" />
-  <br />
-  <img src="images/postman%20register%20api%20response.png" alt="Postman register API response" width="720" />
-  <br />
-  <img src="images/test%201.png" alt="Test run example" width="720" />
-</p>
+![All tests passed](./images/all%20passed.png)
+
+![Execution start / testing start](./images/execution%20start%20testing%20start.png)
+
+![Postman category API](./images/postman%20category%20api.png)
+
+![Postman login API cookie](./images/postman%20login%20api%20cookie.png)
+
+![Postman login API response](./images/postman%20login%20api%20response.png)
+
+![Postman register API response](./images/postman%20register%20api%20response.png)
+
+![Test run example](./images/test%201.png)
 
 Java 17 · Spring Boot 3.2.4 · PostgreSQL · JaCoCo ≥ 80%
 

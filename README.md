@@ -12,21 +12,20 @@ bash financial_manager_tests.sh https://finance-management-system-sgft.onrender.
 
 Last run against live: **86 / 86 passed**.
 
+<div align="center">
+  <img src="./images/all-passed.png" alt="All tests passed" width="900" />
+</div>
+
 ## Screenshots
 
-![All tests passed](./images/all-passed.png)
+<p align="center">
+  <img src="./images/postman-category-api.png" alt="Postman category API" width="760" />
+  <img src="./images/postman-login-api-cookie.png" alt="Postman login API cookie" width="760" />
+  <img src="./images/postman-login-api-response.png" alt="Postman login API response" width="760" />
+  <img src="./images/postman-register-api-response.png" alt="Postman register API response" width="760" />
+</p>
 
-<!-- ![Execution start / testing start](./images/execution-start-testing-start.png) -->
-
-![Postman category API](./images/postman-category-api.png)
-
-![Postman login API cookie](./images/postman-login-api-cookie.png)
-
-![Postman login API response](./images/postman-login-api-response.png)
-
-![Postman register API response](./images/postman-register-api-response.png)
-
-<!-- ![Test run example](./images/test-1.png) -->
+### Stack
 
 Java 17 · Spring Boot 3.2.4 · PostgreSQL · JaCoCo ≥ 80%
 
@@ -89,15 +88,15 @@ flowchart LR
   class X out
 ```
 
-
-PowerShell: use `curl.exe`. Git Bash: `curl` as below.
+> PowerShell users: use `curl.exe`  
+> Git Bash / macOS / Linux: use `curl` as shown below
 
 ```bash
 export BASE=https://finance-management-system-sgft.onrender.com/api
 # export BASE=http://localhost:8080/api
 ```
 
-### 1. Register
+### 1) Register a user
 
 ```bash
 curl -sS -X POST "$BASE/auth/register" \
@@ -110,77 +109,119 @@ curl -sS -X POST "$BASE/auth/register" \
   }'
 ```
 
-`201` `{"message":"User registered successfully","userId":1}` · duplicate email `409` · missing fields `400`
+Expected result:
+- `201` → `{"message":"User registered successfully","userId":1}`
+- duplicate email → `409`
+- missing fields → `400`
 
-### 2. Login
+### 2) Log in and start a session
 
 ```bash
 curl -sS -c cookies.txt -X POST "$BASE/auth/login" \
   -H "Content-Type: application/json" \
-  -d '{"username":"alex@example.com","password":"password123"}'
+  -d '{
+    "username": "alex@example.com",
+    "password": "password123"
+  }'
 ```
 
-`200` + `Set-Cookie: JSESSIONID` · bad password `401`
+Expected result:
+- `200` with `Set-Cookie: JSESSIONID`
+- bad password → `401`
 
-### 3. Categories
+### 3) Categories
 
 ```bash
 curl -sS -b cookies.txt "$BASE/categories"
 
 curl -sS -b cookies.txt -X POST "$BASE/categories" \
   -H "Content-Type: application/json" \
-  -d '{"name":"Freelance","type":"INCOME"}'
+  -d '{
+    "name": "Freelance",
+    "type": "INCOME"
+  }'
 
 curl -sS -b cookies.txt -X DELETE "$BASE/categories/Freelance"
 ```
 
-In use → `400`. Default name → `403`.
+Notes:
+- category already in use → `400`
+- default category delete → `403`
 
-### 4. Transactions
+### 4) Transactions
 
 ```bash
 curl -sS -b cookies.txt -X POST "$BASE/transactions" \
   -H "Content-Type: application/json" \
-  -d '{"amount":5000.00,"date":"2024-01-15","category":"Salary","description":"January salary"}'
+  -d '{
+    "amount": 5000.00,
+    "date": "2024-01-15",
+    "category": "Salary",
+    "description": "January salary"
+  }'
 
 curl -sS -b cookies.txt -X POST "$BASE/transactions" \
   -H "Content-Type: application/json" \
-  -d '{"amount":1200.00,"date":"2024-01-16","category":"Rent","description":"Monthly rent"}'
+  -d '{
+    "amount": 1200.00,
+    "date": "2024-01-16",
+    "category": "Rent",
+    "description": "Monthly rent"
+  }'
 
 curl -sS -b cookies.txt "$BASE/transactions"
 curl -sS -b cookies.txt "$BASE/transactions?category=Salary"
 curl -sS -b cookies.txt "$BASE/transactions?startDate=2024-01-01&endDate=2024-01-31&type=EXPENSE"
 
-# Date in the body is ignored
+# Date in the request body is ignored on update
 curl -sS -b cookies.txt -X PUT "$BASE/transactions/1" \
   -H "Content-Type: application/json" \
-  -d '{"amount":5500.00,"description":"Salary plus bonus"}'
+  -d '{
+    "amount": 5500.00,
+    "description": "Salary plus bonus"
+  }'
 
 curl -sS -b cookies.txt -X DELETE "$BASE/transactions/2"
 ```
 
-`type` comes from the category. List is newest first. Unknown category / future date / amount ≤ 0 → `400`.
+Notes:
+- `type` is derived from the category
+- list is newest-first
+- unknown category / future date / amount ≤ 0 → `400`
 
-### 5. Goals
+### 5) Goals
 
 ```bash
 curl -sS -b cookies.txt -X POST "$BASE/goals" \
   -H "Content-Type: application/json" \
-  -d '{"goalName":"Emergency Fund","targetAmount":10000.00,"targetDate":"2027-01-01","startDate":"2024-01-01"}'
+  -d '{
+    "goalName": "Emergency Fund",
+    "targetAmount": 10000.00,
+    "targetDate": "2027-01-01",
+    "startDate": "2024-01-01"
+  }'
 
 curl -sS -b cookies.txt "$BASE/goals"
 curl -sS -b cookies.txt "$BASE/goals/1"
 
 curl -sS -b cookies.txt -X PUT "$BASE/goals/1" \
   -H "Content-Type: application/json" \
-  -d '{"targetAmount":15000.00,"targetDate":"2028-01-01"}'
+  -d '{
+    "targetAmount": 15000.00,
+    "targetDate": "2028-01-01"
+  }'
 
 curl -sS -b cookies.txt -X DELETE "$BASE/goals/1"
 ```
 
-Response includes `currentProgress`, `progressPercentage`, `remainingAmount`. Another user’s goal → `403`.
+Response includes:
+- `currentProgress`
+- `progressPercentage`
+- `remainingAmount`
 
-### 6. Reports
+Another user’s goal → `403`.
+
+### 6) Reports
 
 ```bash
 curl -sS -b cookies.txt "$BASE/reports/monthly/2024/1"
@@ -197,15 +238,19 @@ curl -sS -b cookies.txt "$BASE/reports/yearly/2024"
 }
 ```
 
-Empty period is still `200` with `"netSavings": 0`. Month `0` or `13` → `400`.
+Notes:
+- empty period still returns `200` with `"netSavings": 0`
+- month `0` or `13` → `400`
 
-### 7. Logout
+### 7) Logout
 
 ```bash
 curl -sS -b cookies.txt -c cookies.txt -X POST "$BASE/auth/logout"
 ```
 
-`200` then protected calls → `401`.
+Expected result:
+- `200`
+- protected calls afterward → `401`
 
 ---
 

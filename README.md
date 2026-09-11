@@ -43,6 +43,37 @@ Zero `netSavings` / `currentProgress` is JSON `0` (not `0.00`) so the official t
 
 Cookie jar is required after login. Without it, protected routes return `401`.
 
+```mermaid
+flowchart LR
+  R["POST /auth/register"] --> L["POST /auth/login"]
+  L --> S["JSESSIONID cookie"]
+
+  S --> C["GET/POST /categories"]
+  S --> T["POST /transactions"]
+  T --> G["GET /goals<br/>progress = income − expenses"]
+  T --> P["GET /reports<br/>monthly + yearly"]
+  S --> X["POST /auth/logout"]
+
+  C -.-> T
+
+  classDef auth fill:#f97316,stroke:#c2410c,color:#fff
+  classDef sess fill:#eab308,stroke:#a16207,color:#1c1917
+  classDef cat fill:#14b8a6,stroke:#0f766e,color:#fff
+  classDef tx fill:#3b82f6,stroke:#1d4ed8,color:#fff
+  classDef goal fill:#ec4899,stroke:#be185d,color:#fff
+  classDef rep fill:#8b5cf6,stroke:#6d28d9,color:#fff
+  classDef out fill:#64748b,stroke:#334155,color:#fff
+
+  class R,L auth
+  class S sess
+  class C cat
+  class T tx
+  class G goal
+  class P rep
+  class X out
+```
+
+
 PowerShell: use `curl.exe`. Git Bash: `curl` as below.
 
 ```bash

@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+
+# Maven
+target/
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+.factorypath
+.sts4-cache/
+.springBeans
+
+# Scripts & Misc
+*.sh
+*.ps1
+*.txt
+*.md

@@ -1,0 +1,34 @@
+# Ignore everything by default
+*
+
+# Whitelist root files
+!.gitignore
+!.dockerignore
+!pom.xml
+!README.md
+!financial_manager_tests.sh
+!Dockerfile
+!docker-compose.yml
+!render.yaml
+!assets/
+assets/*
+!assets/*.png
+!assets/*.jpg
+!assets/*.gif
+!assets/*.webp
+
+# Whitelist src folder itself so git can look inside
+!src/
+
+# Ignore everything inside src by default
+src/*
+
+# Whitelist src/main and src/test
+!src/main/
+!src/main/**
+!src/test/
+!src/test/**
+
+# specifically ignore target dirs
+target/
+**/target/

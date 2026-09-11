@@ -17,6 +17,13 @@ assets/*
 !assets/*.gif
 !assets/*.webp
 
+!images/
+images/*
+!images/*.png
+!images/*.jpg
+!images/*.gif
+!images/*.webp
+
 # Whitelist src folder itself so git can look inside
 !src/
 

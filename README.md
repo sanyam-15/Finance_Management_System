@@ -12,6 +12,26 @@ bash financial_manager_tests.sh https://finance-management-system-sgft.onrender.
 
 Last run against live: **86 / 86 passed**.
 
+## Screenshots
+
+<div align="center">
+
+![All tests passed](images/all%20passed.png)
+
+![Execution start / testing start](images/execution%20start%20testing%20start.png)
+
+![Postman category API](images/postman%20category%20api.png)
+
+![Postman login API cookie](images/postman%20login%20api%20cookie.png)
+
+![Postman login API response](images/postman%20login%20api%20response.png)
+
+![Postman register API response](images/postman%20register%20api%20response.png)
+
+![Test run example](images/test%201.png)
+
+</div>
+
 Java 17 · Spring Boot 3.2.4 · PostgreSQL · JaCoCo ≥ 80%
 
 ---
